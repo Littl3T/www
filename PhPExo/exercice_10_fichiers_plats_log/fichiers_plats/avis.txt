@@ -1,0 +1,48 @@
+tom [tomdeney@gmail.com]
+Appréciation : mauvais
+"Pas ouf le gars"
+-----------------------------------------------------
+aaa [tomdeney@gmail.com]
+Appréciation : bon
+"afazafaf"
+-----------------------------------------------------
+aa [tomdeney@gmail.com]
+Appréciation : moyen
+"aaaa"
+-----------------------------------------------------
+eeee [tomdeney@gmail.com]
+Appréciation : mauvais
+"ddd"
+-----------------------------------------------------
+aa [tomdeney@gmail.com]
+Appréciation : mauvais
+"a"
+-----------------------------------------------------
+aa [tomdeney@gmail.com]
+Appréciation : mauvais
+""
+-----------------------------------------------------
+aa [tomdeney@gmail.com]
+Appréciation : mauvais
+""
+-----------------------------------------------------
+aaa [tomdeney@gmail.com]
+Appréciation : trés bon
+"a"
+-----------------------------------------------------
+Corentin [corentin.lallement@std.heh.be]
+Appréciation : bon
+"ok"
+-----------------------------------------------------
+aa [corentin.lallement@std.heh.be]
+Appréciation : moyen
+"aa"
+-----------------------------------------------------
+aaa [tomdeney@gmail.com]
+Appréciation : mauvais
+"aa"
+-----------------------------------------------------
+aaa [tomdeney@gmail.com]
+Appréciation : mauvais
+"aa"
+-----------------------------------------------------

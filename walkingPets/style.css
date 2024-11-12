@@ -60,7 +60,7 @@ figcaption h3 {
     margin: -0.5rem 0 0.5rem 0;
 }
 #comment{
-    margin-top: 3rem;
+    margin: 3rem 2rem;
     width: 100%;
     text-align: center;
 }
@@ -73,4 +73,40 @@ a{
 }
 a:hover{
     background-color: rgba(255, 166, 0, 0.534);
+}
+
+#form_body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#leash{
+    width: 15rem;
+    height: auto;
+}
+#form{
+    width: 70vh;
+    height: max-content;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+textarea, #comment{
+    margin: 0;
+}
+#form form{
+    margin-bottom: 2rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-items: center;
+}
+#form form input{
+    padding: 0.5rem ;
+}
+#form form button {
+    padding:1rem;
+}
+.visited{
+    color: yellow;
 }

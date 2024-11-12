@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include "_bd.php"
 ?>
 <?php
@@ -43,15 +44,20 @@ $informations = $reqNoms->fetchAll();
             echo "<img src='icons/" . str_replace("jpg","png",$animal_info["icon"]) . "' alt='" . $animal_info["category_name"]. " icon'>";
             echo "<figcaption>";
             echo "<h3>" . $animal_info["name"]."</h3>";
-            if($animal_info["walks"] >$animal_info["max_walks"] and !empty($animal_info["max_walks"])) {
-                echo "<p> Walks: " . "<span class='wrong'>" .$animal_info["walks"] . "</span> ".$animal_info["max_walks"];
+            if (isset($_SESSION['pets'][$animal_info['id_pet']])){
+                $visited = 'class="visited"';
             } else{
-                echo "<p> Walks: " . $animal_info["walks"];
+                $visited = '';
+            }
+            if($animal_info["walks"] >$animal_info["max_walks"] and !empty($animal_info["max_walks"])) {
+                echo "<p $visited> Walks: " . "<span class='wrong'>" .$animal_info["walks"] . "</span> ".$animal_info["max_walks"];
+            } else{
+                echo "<p $visited> Walks: " . $animal_info["walks"];
             }
 
-            echo "<p> Meals: " . $animal_info["meals"];
+            echo "<p $visited> Meals: " . $animal_info["meals"];
             if(!empty($animal_info["comment"])) {
-                echo "<p> <span title=\"".$animal_info["comment"]."\">"."Remarque..."." </span>";
+                echo "<p $visited> <span $visited title=\"".$animal_info["comment"]."\">"."Remarque..."." </span>";
             }
             echo "</figcaption>";
             echo "</figure>";

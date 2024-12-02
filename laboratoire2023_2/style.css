@@ -1,0 +1,38 @@
+body,html{
+    margin: 0;
+    padding: 0;
+}
+
+p{
+    margin: 0.5rem;
+}
+
+main{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+section{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    text-align: center;
+}
+
+#top8 h2 {
+    width: 14rem;
+}
+
+#flexinverse{
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    margin:0
+}
+
+.bold{
+    font-weight: bold;
+}

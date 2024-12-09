@@ -1,0 +1,187 @@
+@font-face {
+    font-family:"CherryBombOne-Regular" ;
+    src: url(Ressources/fonts/Cherry_Bomb_One/CherryBombOne-Regular.ttf);
+}
+
+html, body{
+    padding: 0;
+    margin: 0;
+}
+.body_login{
+    background: url(Ressources/img/BackgroundLogin.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.main_login{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    width: 100%;
+    font-family: CherryBombOne-Regular;
+    text-decoration: none;
+    font-size: 2rem;
+    color: rgb(17, 108, 187);
+    text-shadow: white 1px 1px;
+    letter-spacing: 0.2rem;
+}
+
+.LoginForm h1{
+    width: 100%;
+    text-align: center;
+}
+
+.LoginForm{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: start;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0,0,0,0.2);
+    padding: 2rem 3rem 2rem 3rem;
+    border-radius: 2rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.LoginForm input{
+    width: 100%;
+    padding: 0.2rem 0 ;
+    font-size: 1.2rem;
+}
+
+.LoginForm label{
+    font-size: 1.2rem;
+    width: 100%;
+}
+
+.LoginForm .buttonsignin{
+    width: 40%;
+}
+.LoginForm div{
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items:center;
+}
+.LoginForm div p {
+    width: 40%;
+}
+.LoginForm p{
+    width: 100%;
+    text-align: center;
+}
+#wrongcredentials{
+    margin: 0;
+}
+
+
+
+#main_header{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#main_header > a{
+    text-decoration: none;
+    color: black;
+    font-family: CherryBombOne-Regular;
+}
+
+#main_header h1{
+    padding: 0 1rem;
+}
+
+#main_header a img{
+    width: 3rem;
+    padding: 0 1rem;
+}
+
+#top_nav{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: max-content;
+}
+#top_nav a{
+    text-decoration: none;
+    color: black;
+    padding: 1rem;
+}
+
+
+#categories {
+    width: 8rem;
+    padding: 1rem;
+}
+
+#categories label{
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+#categories input{
+    display: none;
+}
+
+#categories input:checked + label {
+    font-weight: bold;
+    font-size: 1.7rem;
+  }
+
+#categories img{
+    width: 100%;
+    border-radius: 100%;
+}
+
+#field_categories{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#createproduct{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#createproduct button{
+    height: 3rem;
+    width: 5rem;
+    margin: 1rem;
+}
+
+#infosproductcreate{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#titleproduct{
+    width: 100%;
+    text-align: center;
+}
+
+#descproduct img{
+    width: 3rem;
+}

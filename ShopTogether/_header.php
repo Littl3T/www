@@ -1,7 +1,7 @@
 <header id="main_header">
     <a href="home.php"><h1>ShopTogether</h1></a>
     <nav id="top_nav">
-        <a href="#">ShoppingList</a>
+        <a href="shoppinglist.php">ShoppingList</a>
         <a href="#">ShoppingHistory</a>
         <a href="products.php">Products</a>
     </nav>

@@ -1,0 +1,117 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: #222233;
+    color: white;
+    font-family: Calibri, sans-serif;
+    font-size: 1.2rem;
+}
+
+main{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    justify-items: center;
+}
+
+main h1{
+    text-align: center;
+}
+
+#listheros{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    justify-items: start;
+}
+
+.jedis{
+    text-align: center;
+}
+
+.jedis a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.jedis a p{
+    margin: 0.2rem 0;
+}
+
+#selected_hero{
+    font-weight: bold;
+    color: rgba(255, 255, 255, 1);
+}
+
+.jedis a span{
+    font-weight:bold;
+}
+
+.green{
+    color: #58D35C;;
+}
+
+.pink{
+    color: #D33DD6;
+}
+
+.red{
+    color: #D33D41;
+}
+
+.blue{
+    color: #6666D6;
+}
+
+#citation{
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+}
+
+#citation h2{
+    text-align: center;
+}
+
+#citation p {
+    font-style: italic;
+    margin: 0.2rem 0;
+}
+
+#citation .nom_film{
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#citation a {
+    text-decoration: none;
+    color: white;
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    transition: all 250ms ease-in-out;
+}
+
+#citation a:hover{
+    font-size: 1.5rem;
+}
+
+#formulaire{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+form#formulaire label.error{
+    font-size: 1.2rem;
+    color: red;
+}
+
+#lien{
+    text-decoration: none;
+    color: white;
+    transition:all 250ms ease-in-out
+}
+
+#lien:hover{
+    font-size: 1.8rem;
+}

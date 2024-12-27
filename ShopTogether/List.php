@@ -6,7 +6,12 @@ if(empty($_SESSION["login"])){
     exit();
     session_unset(); // Supprime toutes les variables de session
     session_destroy();
-}
+} else include "_connexionBD.php";
+
+if(isset($_GET['ID_shoppingList'])){
+    $id = $_GET['ID_shoppingList'];
+} else $id = "nop";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,12 +26,13 @@ if(empty($_SESSION["login"])){
     include "_header.php"
     ?>
     <main>
+        <div>
+            <a href=""></a>
+        </div>
         <p>
-            Dear users,
-
-            Welcome to our ShoppingTogether platform.
-
-            The founders.
+            <?php
+            echo $id;
+            ?>
         </p>
     </main>
 </body>

@@ -1,17 +1,40 @@
 <?php
-session_start(); // Démarre la session existante ou en crée une nouvelle
-include "_connexionBD.php"; // Connexion à la base de données
+session_start(); 
+include "_connexionBD.php"; 
 
-if(isset($_POST["password"]) and isset($_POST["confirmpassword"])){
-    if($_POST["password"] === $_POST["confirmpassword"]){
-        $req_newUser = $bd->prepare("INSERT INTO `users` (`ID_User`, `Pseudo`, `Password`, `emailAddress`, `ID_sex`, `ID_Country`) VALUES (NULL, :userpseudo, SHA2(:userpassword,256), :useremail, :usersex, :usercountry);");
-        $req_newUser->bindvalue("userpseudo", $_POST["pseudo"]);
-        $req_newUser->bindvalue(":userpassword", $_POST["password"]);
-        $req_newUser->bindvalue("useremail", $_POST["emailadress"]);
-        $req_newUser->bindvalue("usersex", (int)$_POST["sex"]);
-        $req_newUser->bindValue("usercountry", (int) $_POST["country"]);
+$errorMessage = ""; 
+$pseudo = isset($_POST['pseudo']) ? htmlspecialchars($_POST['pseudo']) : '';
+$sex = isset($_POST['sex']) ? (int)$_POST['sex'] : '';
+$country = isset($_POST['country']) ? (int)$_POST['country'] : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
+$confirmpassword = isset($_POST['confirmpassword']) ? $_POST['confirmpassword'] : '';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = isset($_POST["emailadress"]) ? htmlspecialchars($_POST["emailadress"]) : '';
+    
+    // Vérifier si l'email existe déjà
+    $req_checkEmail = $bd->prepare("SELECT COUNT(*) FROM users WHERE emailAddress = :email");
+    $req_checkEmail->bindValue(":email", $email);
+    $req_checkEmail->execute();
+    $emailExists = $req_checkEmail->fetchColumn() > 0;
+
+    if ($emailExists) {
+        $errorMessage = "This email address is already registered.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errorMessage = "Invalid email address format.";
+    } elseif ($password !== $confirmpassword) {
+        $errorMessage = "Passwords do not match.";
+    } else {
+        $req_newUser = $bd->prepare("INSERT INTO `users` (`Pseudo`, `Password`, `emailAddress`, `ID_sex`, `ID_Country`) 
+                                     VALUES (:userpseudo, SHA2(:userpassword,256), :useremail, :usersex, :usercountry)");
+        $req_newUser->bindValue("userpseudo", $pseudo);
+        $req_newUser->bindValue(":userpassword", $password);
+        $req_newUser->bindValue("useremail", $email);
+        $req_newUser->bindValue("usersex", $sex);
+        $req_newUser->bindValue("usercountry", $country);
         $req_newUser->execute();
         header("location:index.php");
+        exit();
     }
 }
 ?>
@@ -29,8 +52,13 @@ if(isset($_POST["password"]) and isset($_POST["confirmpassword"])){
             <h1>
                 <a href="index.php" class="title">ShopTogether</a>
             </h1>
+            
+            <?php if (!empty($errorMessage)) : ?>
+                <p id="infos" class="error"><?php echo $errorMessage; ?></p>
+            <?php endif; ?>
+
             <label for="pseudo">Pseudo</label>
-            <input type="text" name="pseudo" required>
+            <input type="text" name="pseudo" value="<?php echo $pseudo; ?>" required>
 
             <label for="sex">Gender</label>
             <select name="sex" id="sex">
@@ -39,7 +67,8 @@ if(isset($_POST["password"]) and isset($_POST["confirmpassword"])){
                 $reqGenders->execute();
                 $genders = $reqGenders->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($genders as $gender) {
-                    echo "<option value='{$gender['id']}'>{$gender['name']}</option>";
+                    $selected = $gender['id'] == $sex ? "selected" : "";
+                    echo "<option value='{$gender['id']}' $selected>{$gender['name']}</option>";
                 }
                 ?>
             </select>
@@ -50,8 +79,9 @@ if(isset($_POST["password"]) and isset($_POST["confirmpassword"])){
                 $reqcountries = $bd->prepare("SELECT * FROM countries");
                 $reqcountries->execute();
                 $countries = $reqcountries->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($countries as $countries) {
-                    echo "<option value='{$countries['ID']}'>{$countries['NAME']}</option>";
+                foreach ($countries as $countryOption) {
+                    $selected = $countryOption['ID'] == $country ? "selected" : "";
+                    echo "<option value='{$countryOption['ID']}' $selected>{$countryOption['NAME']}</option>";
                 }
                 ?>
             </select>
@@ -68,12 +98,6 @@ if(isset($_POST["password"]) and isset($_POST["confirmpassword"])){
             <div>
                 <input type="submit" value="Sign Up" class="buttonsignin">
             </div>
-            <?php
-            if(isset($_POST["password"]) and isset($_POST["confirmpassword"])){
-                if($_POST["password"] === $_POST["confirmpassword"]){
-                } else echo "<p id='infos'>Paswords don't match... Try again</p>";
-            }
-            ?>
         </form>
     </main>
 </body>

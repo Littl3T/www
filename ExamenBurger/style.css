@@ -1,0 +1,30 @@
+html,body{
+    padding: 0;
+    margin: 0;
+}
+
+#topburger{
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+}
+
+.burger{
+    width: 5rem;
+}
+
+.burgerlist{
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items:flex-end;
+}
+.burgerlist p {
+    height: max-content;
+    margin: 0.5rem;
+}
+.ingredient{
+    height: 3rem;
+}

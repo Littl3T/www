@@ -1,0 +1,116 @@
+
+html, body { padding:0; margin:0; font-family:AR Julian, Helvetica; color:#444; }
+header { background-color: #102341; color:#FFF; padding:1rem; }
+footer { background-color: #333; color:#FFF; padding:1rem; }
+.center { width:600px; max-width:100%; margin:0 auto;}
+h1 { margin:0;}
+
+.pillagesliens{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    margin: 1rem 0;
+}
+
+.pillagesliens img{
+    margin-right: 0.5rem;
+}
+
+#PillageCarte{
+    width: 700px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#pillageheader{
+    margin-top: 3rem;
+    background-color: rgb(76, 17, 17);
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 1rem 3rem;
+}
+
+#pillagetitle{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#pillagetitle img{
+    margin-right: 1rem;
+}
+
+#pillagecontenu{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 0.5rem 3rem;
+}
+
+#drakkars{
+    margin-top: 2.5rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#drakkars img{
+    margin-right: 0.2rem;
+}
+
+#drakkars p{
+    margin: 0 0 0 1rem;
+}
+
+#ContenuPrincipalPillage{
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#ContenuPrincipalPillage div{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#ContenuPrincipalPillage p{
+    margin: 0 0 0 0.5rem;
+}
+
+#comment{
+    color: grey;
+}
+
+#FormulairePillage{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#FormulairePillage input, #FormulairePillage select  {
+    margin-bottom: 1.2rem;
+}
+
+.errorform{
+    color: red;
+    font-size: 1.8rem;
+}

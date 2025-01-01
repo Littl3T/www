@@ -22,10 +22,10 @@ if(empty($_SESSION["login"])){
     ?>
     <main>
         <a href="new_list.php">New ShoppingList</a>
-
         <div id="shoppingListGallery">
             <?php
-            $reqShoppingList = $bd->prepare("SELECT * FROM shoppinglist");
+            $reqShoppingList = $bd->prepare("SELECT s.ID_shoppingList,s.Name,s.DateCreation,s.DateValidation FROM user_shopping as us JOIN shoppinglist as s ON s.ID_shoppingList= us.ID_shopping WHERE us.ID_user=:usr ORDER BY s.DateCreation;");
+            $reqShoppingList->bindvalue('usr',(int) $_SESSION["login"]["ID_User"]);
             $reqShoppingList->execute();
             while ( $list=$reqShoppingList->fetch() ) {
                 echo "<div>";

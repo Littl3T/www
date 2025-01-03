@@ -901,3 +901,121 @@ main.ShopListPage {
     gap: 0.5rem;
   }
 }
+
+/* ================================ */
+/* 15) Page ArchivedList (listes archivées) */
+/* ================================ */
+
+#ArchivedListMain {
+    width: 90%;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 0.3rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Informations générales de la liste archivée */
+#InformationsFromArchivedList {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+}
+
+#InformationsFromArchivedList h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: #116cbb;
+}
+
+#InformationsFromArchivedList p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0.2rem 0;
+}
+
+/* Liste des produits archivés */
+#ProductsFromArchivedList {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.8rem;
+}
+
+/* Produit archivé - Style de base */
+.ArchivedProduct {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 0.8rem 1rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Produit acheté */
+.ArchivedProduct.bought {
+    background-color: #e6f9e6;
+    border: 1px solid #8fd88f;
+    color: #2b7a2b;
+}
+
+.ArchivedProduct.bought p {
+    margin: 0.3rem 0;
+}
+
+/* Produit non acheté */
+.ArchivedProduct.notbought {
+    background-color: #fde8e8;
+    border: 1px solid #e08c8c;
+    color: #a52a2a;
+}
+
+.ArchivedProduct.notbought p {
+    margin: 0.3rem 0;
+}
+
+/* Texte des produits */
+.ArchivedProduct p {
+    font-size: 1rem;
+    margin: 0.2rem 0;
+}
+
+.ArchivedProduct p:nth-child(1) {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Prix spécifique */
+.ArchivedProduct p:last-child {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Responsivité pour mobile */
+@media (max-width: 600px) {
+    #ArchivedListMain {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .ArchivedProduct {
+        padding: 0.5rem;
+    }
+
+    #InformationsFromArchivedList h2 {
+        font-size: 1.5rem;
+    }
+
+    #InformationsFromArchivedList p {
+        font-size: 0.9rem;
+    }
+
+    .ArchivedProduct p {
+        font-size: 0.9rem;
+    }
+
+    .ArchivedProduct p:nth-child(1) {
+        font-size: 1rem;
+    }
+}

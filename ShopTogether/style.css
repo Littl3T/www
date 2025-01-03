@@ -196,6 +196,7 @@ html, body {
 */
 #top_nav.open {
     display: flex;
+    z-index: 10;
 }
 
 /* =================================== */
@@ -581,7 +582,7 @@ main.ProductsPage {
     flex-flow: column nowrap;
     gap: 0.5rem;
 }
-.product_card:hover {
+.product_card:hover, #shoppingListGallery div:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
@@ -1019,3 +1020,155 @@ main.ShopListPage {
         font-size: 1rem;
     }
 }
+
+/* ================================ */
+/* 16) Page Account (Mon Compte)    */
+/* ================================ */
+
+/* Container principal */
+main.AccountPage {
+    width: 90%;
+    max-width: 600px;
+    margin: 1rem auto;
+    background-color: #fff;
+    padding: 1.5rem 1rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+main.AccountPage h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 0 0 1rem 0;
+    color: #116cbb;
+}
+
+/* Message d'alerte / succès */
+.AccountMessage {
+    background-color: #fefce8;
+    border: 1px solid #fcf1bb;
+    border-radius: 0.3rem;
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    color: #333;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Image de profil */
+.AccountImage {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.AccountImage img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+/* Formulaire pour l’upload image */
+.ImageUploadForm {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+}
+
+.ImageUploadForm label {
+    font-weight: 600;
+}
+
+.UploadImageBtn {
+    background-color: #116cbb;
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 200ms ease-in;
+}
+
+.UploadImageBtn:hover {
+    background-color: #0d5b9a;
+}
+
+/* Formulaire de mise à jour du compte */
+.AccountForm {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.8rem;
+}
+
+.AccountForm label {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.AccountForm input[type="text"],
+.AccountForm input[type="email"],
+.AccountForm input[type="password"],
+.AccountForm select {
+    width: 100%;
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+}
+
+.AccountForm hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 1rem 0;
+}
+
+.UpdateAccountBtn {
+    background-color: #116cbb;
+    color: #fff;
+    border: none;
+    border-radius: 0.3rem;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 200ms ease-in;
+    align-self: center;
+}
+
+.UpdateAccountBtn:hover {
+    background-color: #0d5b9a;
+}
+
+/* Zone et bouton logout */
+.LogoutZone {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.LogoutBtn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #999;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 0.3rem;
+    transition: background-color 200ms ease-in;
+}
+
+.LogoutBtn:hover {
+    background-color: #777;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    main.AccountPage {
+        width: 95%;
+        padding: 1rem;
+    }
+    .ImageUploadForm {
+        flex-flow: column nowrap;
+    }
+}
+

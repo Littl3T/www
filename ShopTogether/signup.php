@@ -6,6 +6,7 @@ $errorMessage = "";
 $pseudo = isset($_POST['pseudo']) ? htmlspecialchars($_POST['pseudo']) : '';
 $sex = isset($_POST['sex']) ? (int)$_POST['sex'] : '';
 $country = isset($_POST['country']) ? (int)$_POST['country'] : '';
+$currency = isset($_POST['currency']) ? (int)$_POST['currency'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 $confirmpassword = isset($_POST['confirmpassword']) ? $_POST['confirmpassword'] : '';
 
@@ -25,13 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif ($password !== $confirmpassword) {
         $errorMessage = "Passwords do not match.";
     } else {
-        $req_newUser = $bd->prepare("INSERT INTO `users` (`Pseudo`, `Password`, `emailAddress`, `ID_sex`, `ID_Country`) 
-                                     VALUES (:userpseudo, SHA2(:userpassword,256), :useremail, :usersex, :usercountry)");
+        $req_newUser = $bd->prepare("INSERT INTO `users` (`Pseudo`, `Password`, `emailAddress`, `ID_sex`, `ID_Country`,ID_currency) 
+                                     VALUES (:userpseudo, SHA2(:userpassword,256), :useremail, :usersex, :usercountry,:currency)");
         $req_newUser->bindValue("userpseudo", $pseudo);
         $req_newUser->bindValue(":userpassword", $password);
         $req_newUser->bindValue("useremail", $email);
         $req_newUser->bindValue("usersex", $sex);
         $req_newUser->bindValue("usercountry", $country);
+        $req_newUser->bindValue("currency", $currency);
         $req_newUser->execute();
         header("location:index.php");
         exit();
@@ -82,6 +84,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 foreach ($countries as $countryOption) {
                     $selected = $countryOption['ID'] == $country ? "selected" : "";
                     echo "<option value='{$countryOption['ID']}' $selected>{$countryOption['NAME']}</option>";
+                }
+                ?>
+            </select>
+            <label for="currency">Currency</label>
+            <select name="currency" id="currency">
+                <?php
+                $reqcurrencies = $bd->prepare("SELECT * FROM currency ORDER BY name");
+                $reqcurrencies->execute();
+                $currencies = $reqcurrencies->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($currencies as $currenciesOption) {
+                    if(isset($currency)){$selected = $currenciesOption['ID_currency'] == $currency ? "selected" : "";} else $selected="";
+                    echo "<option value='{$currenciesOption['ID_currency']}' $selected>".$currenciesOption['name']." ".$currenciesOption['code']."".$currenciesOption['symbol']."</option>";
                 }
                 ?>
             </select>

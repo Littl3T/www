@@ -28,6 +28,12 @@ if (empty($_SESSION["login"])) {
             $list = $reqNameList->fetch(); 
         }
     } else header("location:shoppinglist.php");
+    # Récupération de la monnaie préférée de l'utilisateur
+    $reqcurrency = $bd->prepare('SELECT * FROM currency as c WHERE ID_currency=:id');
+    $reqcurrency->bindvalue('id',$_SESSION['login']['ID_currency']);
+    $reqcurrency->execute();
+    $currencyselected = $reqcurrency->fetch();
+    $currencysymbol = $currencyselected['symbol'];
 }
 ?>
 <!DOCTYPE html>
@@ -58,7 +64,7 @@ if (empty($_SESSION["login"])) {
                 echo '<div class="ArchivedProduct '.$classarch.'" >';
                 echo '<p>'.$prod['ProductName'].'</p>';
                 if(!empty($prod['note'])){echo '<p>'.$prod['note'].'</p>';} 
-                if(!empty($prod['Price'])){echo '<p>'.$prod['Price'].'</p>';} 
+                if(!empty($prod['Price'])){echo '<p>'.$prod['Price'].' '.$currencysymbol.'</p>';} 
                 echo '</div>';
             }
             ?>

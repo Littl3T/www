@@ -24,7 +24,7 @@ if(empty($_SESSION["login"])){
         <p>
             Dear users,
 
-            Welcome to our ShoppingTogether platform.
+            Welcome to our ShoppingTogether platform. <b><?php echo $_SESSION['login']['Pseudo']; ?></b>
 
             The founders.
         </p>

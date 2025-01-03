@@ -44,7 +44,22 @@ if(isset($_POST['ID_shoppingList']) and isset($_POST['note']) and isset($_POST['
     $reqaddproduct->bindValue('list',$idshop);
     $reqaddproduct->bindValue('note',$note);
     $reqaddproduct->execute();
-    header("location:List.php?ID_shoppingList=".$idshop);;
+    header("location:List.php?ID_shoppingList=".$idshop);
+}
+if(isset($_POST['DeletePorudct'])){
+    # Vérification de la présence du produit dans la table. Si présent alors suppression basé sur les formulaire de la liste
+    $deletedproduct = (int) $_POST['DeletePorudct'];
+    $reqcheckproductvalidity = $bd->prepare('SELECT ps.ID_ProductsShopping FROM products_shopping AS ps WHERE ID_ProductsShopping=:prod AND ID_shoppingList=:list');
+    $reqcheckproductvalidity->bindvalue('prod',$deletedproduct);
+    $reqcheckproductvalidity->bindvalue('list',$idshop);
+    $reqcheckproductvalidity->execute();
+    $reqreturnvalidity = $reqcheckproductvalidity->fetch();
+    if(!empty($reqreturnvalidity['ID_ProductsShopping'])){
+        $reqDeleteProduct = $bd->prepare('DELETE FROM products_shopping WHERE ID_productsShopping=:delid');
+        $reqDeleteProduct->bindvalue('delid',$deletedproduct);
+        $reqDeleteProduct->execute();
+        header("location:List.php?ID_shoppingList=".$idshop);
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -70,11 +85,21 @@ if(isset($_POST['ID_shoppingList']) and isset($_POST['note']) and isset($_POST['
         </div>
         <div id="listElements">
             <?php
-                $reqProdList = $bd->prepare('SELECT p.ProductName FROM products_shopping as ps JOIN products as p ON p.ID_product=ps.ID_product WHERE ps.ID_shoppingList=:list');
+                $reqProdList = $bd->prepare('SELECT p.ProductName, ps.ID_ProductsShopping, ps.note FROM products_shopping as ps JOIN products as p ON p.ID_product=ps.ID_product WHERE ps.ID_shoppingList=:list');
                 $reqProdList->bindvalue('list',$idshop);
                 $reqProdList->execute();
                 while ($prod = $reqProdList->fetch()){
+                    echo '<form action="List.php" method="POST">';
+                    echo '<input type="hidden" name="ID_shoppingList" value="'.$idshop.'">';
+                    echo '<input type="hidden" name="DeletePorudct" value="'.$prod['ID_ProductsShopping'].'">';
+                    echo '<div id="product_informations">';
                     echo '<p>'.$prod['ProductName'].'</p>';
+                    echo '<p>'.$prod['note'].'</p>';   
+                    echo '</div>';
+                    echo '<button type="submit">';
+                    echo '<img src="Ressources/img/Trash.png" alt="Delete Trash product" width="40" height="40">';
+                    echo '</button>';
+                    echo '</form>';
                 }
             ?>
         </div>

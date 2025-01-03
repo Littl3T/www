@@ -3,7 +3,7 @@
     <div id="burgerMenu" onclick="toggleMenu()">&#9776;</div>
     <nav id="top_nav">
         <a href="shoppinglist.php">ShoppingList</a>
-        <a href="#">ShoppingHistory</a>
+        <a href="ShoppingHistory.php">ShoppingHistory</a>
         <a href="products.php">Products</a>
     </nav>
     <a href="#" id="accountBtn"><img src="Ressources/img/account.png" alt="Your Account"></a>

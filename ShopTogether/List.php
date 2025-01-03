@@ -35,7 +35,7 @@ if(isset($_GET['categoryfilter'])){
 if(isset($_POST['ID_shoppingList']) and isset($_POST['note']) and isset($_POST['productselected']) and isset($_SESSION["login"]["ID_User"])){
     # Table products_shopping : ID_productsShopping(PK) | IDproduct (FK) | ID_shoppingList (FK) | note | GradeOverTen | Price 
     if(!empty($_POST['note'])){
-        $note = htmlspecialchars($_POST['note']);
+        $note = $_POST['note'];
         $note = trim($note);
     } else $note = null;
     $product = (int) $_POST['productselected'];
@@ -187,7 +187,7 @@ if(isset($_POST['sharedemail']) and !empty($_POST['sharedemail'])){
             </form>   
         </div>
         <div id="ShopTheList">
-            <?php echo '<a href="ShopList.php?ID_shoppingList="'.trim($idshop).'">Shop it NOW</a>'; ?>
+            <?php echo '<a href="ShopList.php?ID_shoppingList='.$idshop.'">Shop it NOW</a>'; ?>
         </div>
     </main>
 </body>

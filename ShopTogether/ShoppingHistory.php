@@ -20,28 +20,24 @@ if (empty($_SESSION["login"])) {
 </head>
 <body>
     <?php include "_header.php"; ?>
-
-    <!-- Le main spécifique à la page d'index de listes -->
     <main class="ShoppingListIndex">
-        <!-- Bouton / lien pour créer une nouvelle liste -->
-        <a href="new_list.php" id="newShoppingListLink">New ShoppingList</a>
-
         <div id="shoppingListGallery">
             <?php
             $reqShoppingList = $bd->prepare(
                 "SELECT s.ID_shoppingList, s.Name, s.DateCreation, s.DateValidation
                  FROM user_shopping AS us
                  JOIN shoppinglist AS s ON s.ID_shoppingList = us.ID_shopping
-                 WHERE us.ID_user = :usr AND s.DateValidation IS NULL
+                 WHERE us.ID_user = :usr AND s.DateValidation IS NOT NULL
                  ORDER BY s.DateCreation;"
             );
             $reqShoppingList->bindValue('usr', (int) $_SESSION["login"]["ID_User"]);
             $reqShoppingList->execute();
             while ($list = $reqShoppingList->fetch()) {
                 echo "<div>";
-                echo "<a href='List.php?ID_shoppingList=".$list['ID_shoppingList']."'>";
+                echo "<a href='ArchivedList.php?ID_shoppingList=".$list['ID_shoppingList']."'>";
                 echo "<h3>".$list['Name']."</h3>";
                 echo "<p>Created: ".$list['DateCreation']."</p>";
+                echo "<p>Shopped: ".$list['DateValidation']."</p>";
                 echo "</a>";
                 echo "</div>";
             }

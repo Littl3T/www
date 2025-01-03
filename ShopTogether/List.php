@@ -61,6 +61,31 @@ if(isset($_POST['DeletePorudct'])){
         header("location:List.php?ID_shoppingList=".$idshop);
     }
 }
+if(isset($_POST['sharedemail']) and !empty($_POST['sharedemail'])){
+    # Vérification de la présence d'un email partagé dans le post.
+    # Vérification de la présance de l'email dans la table user
+    $FriendEmail= htmlspecialchars($_POST['sharedemail']);
+    $reqCheckFriendUser = $bd->prepare('SELECT u.Pseudo,u.ID_user FROM users AS u WHERE u.emailAddress=:friend');
+    $reqCheckFriendUser->bindvalue('friend',$FriendEmail);
+    $reqCheckFriendUser->execute();
+    $friend = $reqCheckFriendUser->fetch();
+    if(!empty($friend['Pseudo'])){
+        # Vérification que l'utilisateur partagé n'est pas déjà partagé
+        $reqCheckFriendP = $bd->prepare('SELECT us.ID_UserShopping FROM user_shopping AS us WHERE ID_user=:usr AND ID_shopping=:list');
+        $reqCheckFriendP->bindvalue('usr',(int)$friend['ID_user']);
+        $reqCheckFriendP->bindvalue('list',$idshop);
+        $reqCheckFriendP->execute();
+        $checkedfriend = $reqCheckFriendP->fetch();
+        if(empty($checkedfriend['ID_UserShopping'])){
+            # Partage à l'utilisateur de la liste
+            $reqAddFriend = $bd->prepare('INSERT INTO user_shopping(ID_UserShopping,ID_user,ID_shopping) VALUES(NULL,:usr,:list)');
+            $reqAddFriend->bindvalue('usr',(int)$friend['ID_user']);
+            $reqAddFriend->bindvalue('list',$idshop);
+            $reqAddFriend->execute();
+            $f = $friend['Pseudo'].' succefully shared to your list';
+        } else $f ='This list is already shared to '.$friend['Pseudo'];
+    } else $f = 'This email address has no ShopTogether account linked';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,15 +99,25 @@ if(isset($_POST['DeletePorudct'])){
     <?php
     include "_header.php";
     ?>
-    <main>
-        <div id="listTitle">
-            <?php
-            echo '<h2>'.$list['Name'].'</h2>';
-            $dateSQL = $list['DateCreation'];        // "2025-01-01"
-            $dateObj = new DateTime($dateSQL);
-            echo '<p>Created: '.$dateObj->format('d F Y').'</p>';   // 01 January 2025
-            ?>    
-        </div>
+    <main class="ListPage">
+        <header id="List">
+            <div id="listTitle">
+                <?php
+                echo '<h2>'.$list['Name'].'</h2>';
+                $dateSQL = $list['DateCreation'];        // "2025-01-01"
+                $dateObj = new DateTime($dateSQL);
+                echo '<p>Created: '.$dateObj->format('d F Y').'</p>';   // 01 January 2025
+                ?>    
+            </div>
+            <form action="List.php" id="sharingList" method="POST">
+                <input type="hidden" name="ID_shoppingList" value="<?php echo $idshop; ?>" />
+                <label for="sharedemail">Friend's email</label>
+                <input type="email" name="sharedemail" id="sharedemail">
+                <button type="submit">Share This list</button>
+                <?php if(isset($f)){ echo '<p>'.$f.'</p>';} ?>
+            </form>
+        </header>
+
         <div id="listElements">
             <?php
                 $reqProdList = $bd->prepare('SELECT p.ProductName, ps.ID_ProductsShopping, ps.note FROM products_shopping as ps JOIN products as p ON p.ID_product=ps.ID_product WHERE ps.ID_shoppingList=:list');
@@ -92,13 +127,13 @@ if(isset($_POST['DeletePorudct'])){
                     echo '<form action="List.php" method="POST">';
                     echo '<input type="hidden" name="ID_shoppingList" value="'.$idshop.'">';
                     echo '<input type="hidden" name="DeletePorudct" value="'.$prod['ID_ProductsShopping'].'">';
+                    echo '<button type="submit">';
+                    echo '<img class="trash" src="Ressources/img/Trash.png" alt="Delete Trash product">';
+                    echo '</button>';
                     echo '<div id="product_informations">';
                     echo '<p>'.$prod['ProductName'].'</p>';
                     echo '<p>'.$prod['note'].'</p>';   
                     echo '</div>';
-                    echo '<button type="submit">';
-                    echo '<img src="Ressources/img/Trash.png" alt="Delete Trash product" width="40" height="40">';
-                    echo '</button>';
                     echo '</form>';
                 }
             ?>
@@ -150,6 +185,9 @@ if(isset($_POST['DeletePorudct'])){
                 <input type="text" name="note" id="note" placeholder="Note">
                 <button type="submit">Add</button>
             </form>   
+        </div>
+        <div id="ShopTheList">
+            <?php echo '<a href="ShopList.php?ID_shoppingList="'.trim($idshop).'">Shop it NOW</a>'; ?>
         </div>
     </main>
 </body>

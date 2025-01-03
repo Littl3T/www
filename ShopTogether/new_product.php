@@ -55,7 +55,7 @@ if(isset($_POST['productName'])){
         echo "<p>Header file missing.</p>";
     }
     ?>
-    <main>
+    <main class="NewProductCreation">
         <form action="" method="POST"> <!-- Submit to the same page -->
             <?php
             echo "<i> $message </i>"

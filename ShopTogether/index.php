@@ -35,7 +35,7 @@ if (isset($_POST["emailadress"]) && isset($_POST["password"])) {
     <main class="main_login">
         <form action="index.php" method="POST" class="LoginForm">
             <h1>
-                <a href="#" class="title">ShopTogether</a>
+                <a href="#" class="title"><img src="Ressources/img/shoptogether.png" alt="Logo Sign in"></a>
             </h1>
             <label for="emailadress">Email</label>
             <input type="email" name="emailadress" required>
@@ -45,7 +45,7 @@ if (isset($_POST["emailadress"]) && isset($_POST["password"])) {
                 <input type="submit" value="Sign In" class="buttonsignin">
                 <p><a href="signup.php">Sign up</a></p>
             </div>
-            <p><a href="#">Forgot password</a></p>
+            <p><a href="#">Forgot password ?</a></p>
             <?php
             if (isset($_POST["emailadress"]) && isset($_POST["password"]) && !isset($_SESSION["login"])) {
                 echo "<p id='wrongcredentials'>Wrong Credentials... Try again</p>";

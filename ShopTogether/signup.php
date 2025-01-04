@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <main class="main_login">
         <form action="signup.php" method="POST" class="LoginForm">
             <h1>
-                <a href="index.php" class="title">ShopTogether</a>
+                <a href="index.php" class="title"><img src="Ressources/img/shoptogether.png" alt="Logo Sign in"></a>
             </h1>
             
             <?php if (!empty($errorMessage)) : ?>

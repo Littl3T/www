@@ -28,7 +28,7 @@ html, body {
 
 /* -- Fond de la page login -- */
 .body_login {
-    background: url("Ressources/img/BackgroundLogin.jpg") center center/cover no-repeat;
+    background-color: #116cbb; ;
 }
 
 /* -- Conteneur principal du login -- */
@@ -40,16 +40,9 @@ html, body {
     justify-content: center;
     align-items: center;
 }
-
-/* -- Titre principal sur la page login -- */
-.title {
-    width: 100%;
-    font-family: "CherryBombOne-Regular";
-    text-decoration: none;
-    font-size: 2rem;
-    color: rgb(17, 108, 187);
-    text-shadow: 1px 1px white;
-    letter-spacing: 0.2rem;
+.main_login form h1 a img{
+    width: 15rem;
+    padding: -1rem;
 }
 
 /* -- Le formulaire de login -- */
@@ -58,9 +51,9 @@ html, body {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: flex-start;
-
+    width: max-content;
     backdrop-filter: blur(10px);
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgb(255, 255, 255);
     padding: 2rem 3rem;
     border-radius: 2rem;
 
@@ -80,19 +73,25 @@ html, body {
     margin-top: 0.5rem;
 }
 
-.LoginForm input {
+.LoginForm input, .LoginForm select {
     width: 100%;
-    padding: 0.2rem 0;
+    padding: 0.3rem 0 0.3rem 0.5rem;
     font-size: 1.2rem;
     margin-top: 0.2rem;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
 }
 
 /* -- Bouton "Sign In" -- */
 .LoginForm .buttonsignin {
-    width: 40%;
+    width: 66%;
     font-size: 1rem;
-    padding: 0.3rem;
+    padding: 0.5rem;
     cursor: pointer;
+        border: none;
+    background-color: #116cbbae;
+    border-radius: 1rem;
 }
 
 /* -- Bloc contenant le bouton + sign up -- */
@@ -131,7 +130,7 @@ html, body {
     align-items: center;
     justify-content: space-between;
     margin: 0;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem;
     background-color: #f8f8f8;
     box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }

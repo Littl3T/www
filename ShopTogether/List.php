@@ -164,17 +164,29 @@ if(isset($_POST['sharedemail']) and !empty($_POST['sharedemail'])){
                 <label for="productselected">Product</label>
                 <select name="productselected" id="productselected">
                     <?php
-                    if(isset($IDcategory) and $IDcategory !=0){
-                        $reqproducts = $bd->prepare('SELECT DISTINCT p.ID_product,p.ProductName FROM product_categories as pc JOIN products as p ON p.ID_product=pc.ID_Product WHERE pc.ID_Category=:cat and p.StateUp=1 and p.ID_user=:usr ;'); 
-                        $reqproducts->bindvalue('cat',(int)$IDcategory);
-                        $reqproducts->bindvalue('usr',(int)$_SESSION["login"]["ID_User"]);
+                    if (isset($IDcategory) and $IDcategory != 0) {
+                        $reqproducts = $bd->prepare('
+                            SELECT DISTINCT p.ID_product, p.ProductName 
+                            FROM product_categories AS pc
+                            JOIN products AS p ON p.ID_product = pc.ID_Product
+                            WHERE pc.ID_Category = :cat
+                            AND p.StateUp = 1
+                            AND (p.ID_user = :usr OR p.ID_user = 0)
+                        ');
+                        $reqproducts->bindValue('cat', (int)$IDcategory);
+                        $reqproducts->bindValue('usr', (int)$_SESSION["login"]["ID_User"]);
                         $reqproducts->execute();
                         while($product =$reqproducts->fetch()){
                                 echo '<option value="'.$product['ID_product'].'">'.$product['ProductName'].'</option>';
                         }
                     } else {
-                        $reqproducts = $bd->prepare('SELECT DISTINCT p.ID_product,p.ProductName FROM products AS p WHERE p.StateUp=1 and p.ID_user=:usr or p.ID_user=0'); 
-                        $reqproducts->bindvalue('usr',(int)$_SESSION["login"]["ID_User"]);
+                        $reqproducts = $bd->prepare('
+                            SELECT DISTINCT p.ID_product, p.ProductName 
+                            FROM products AS p
+                            WHERE p.StateUp = 1
+                              AND (p.ID_user = :usr OR p.ID_user = 0)
+                        ');
+                        $reqproducts->bindValue('usr', (int)$_SESSION["login"]["ID_User"]);
                         $reqproducts->execute();
                         while($product =$reqproducts->fetch()){
                                 echo '<option value="'.$product['ID_product'].'">'.$product['ProductName'].'</option>';

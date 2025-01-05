@@ -1,54 +1,83 @@
 <?php
-session_start(); // Démarre la session existante ou en crée une nouvelle
-include "_connexionBD.php"; // Connexion à la base de données
+session_start();
+include "_connexionBD.php"; 
 
 if (isset($_POST["emailadress"]) && isset($_POST["password"])) {
-    $reqlogin = $bd->prepare("SELECT * FROM users AS u WHERE emailAddress = :emailaddresslogin AND u.Password = SHA2(:passwordlogin, 256)");
+    $reqlogin = $bd->prepare("
+        SELECT * 
+        FROM users AS u 
+        WHERE emailAddress = :emailaddresslogin 
+          AND u.Password = SHA2(:passwordlogin, 256)
+    ");
     $reqlogin->bindValue(":emailaddresslogin", $_POST["emailadress"], PDO::PARAM_STR);
     $reqlogin->bindValue(":passwordlogin", $_POST["password"], PDO::PARAM_STR);
     $reqlogin->execute();
-    $count = $reqlogin->rowCount();
 
-    if ($count > 0) {
-        // Identifiants valides, on configure la session
-        $login = $reqlogin->fetch(PDO::FETCH_ASSOC);
-        $_SESSION["login"] = $login; // Stocke les données de l'utilisateur
-        header("Location: home.php"); // Redirection vers la page d'accueil
-        exit; // Toujours arrêter l'exécution après un header
+    if ($reqlogin->rowCount() > 0) {
+        $login = $reqlogin->fetch();
+        $_SESSION["login"] = $login;
+        header("Location: home.php");
+        exit;
     } else {
-        // Identifiants invalides, on nettoie correctement la session
-        $_SESSION = []; // Vide toutes les variables de session
-        session_unset(); // Détruit toutes les variables de session
-        session_destroy(); // Détruit la session active
+        // Mauvais identifiants : on nettoie la session
+        $_SESSION = [];
+        session_unset();
+        session_destroy();
+        $wrongpassword = $_POST["emailadress"];
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopTogether</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ShopTogether - Login</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
-<body class="body_login">
-    <main class="main_login">
-        <form action="index.php" method="POST" class="LoginForm">
-            <h1>
-                <a href="#" class="title"><img src="Ressources/img/shoptogether.png" alt="Logo Sign in"></a>
-            </h1>
+<body>
+    <!-- Si tu souhaites le menu commun, décommente la ligne :
+    <?php //include "_header.php"; ?>
+    -->
+
+    <main class="AuthPage">
+        <form action="index.php" method="POST" class="AuthForm">
+            <!-- Logo ou titre -->
+            <div class="AuthForm__logo">
+                <img src="Ressources/img/shoptogether.png" alt="ShopTogether" />
+            </div>
+
+            <!-- Email -->
             <label for="emailadress">Email</label>
-            <input type="email" name="emailadress" required>
+            <input 
+                type="email" 
+                name="emailadress" 
+                id="emailadress" 
+                required 
+                placeholder="Enter your email" 
+                <?php if(isset($wrongpassword)){echo 'value="'.$wrongpassword.'"';} ?>/>
+            <!-- Password -->
             <label for="password">Password</label>  
-            <input type="password" name="password" required>
-            <div>
-                <input type="submit" value="Sign In" class="buttonsignin">
+            <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                required 
+                placeholder="Enter your password" />
+
+            <div class="AuthForm__actions">
+                <button type="submit" class="btn">Sign In</button>
                 <p><a href="signup.php">Sign up</a></p>
             </div>
-            <p><a href="#">Forgot password ?</a></p>
+
+            <p class="AuthForm__forgot">
+                <a href="#">Forgot password?</a>
+            </p>
+
+            <!-- Message d'erreur en cas de mauvais identifiants -->
             <?php
-            if (isset($_POST["emailadress"]) && isset($_POST["password"]) && !isset($_SESSION["login"])) {
-                echo "<p id='wrongcredentials'>Wrong Credentials... Try again</p>";
+            if (isset($_POST["emailadress"], $_POST["password"]) && !isset($_SESSION["login"])) {
+                echo '<p class="errorMsg">Wrong Credentials... Try again</p>';
             }
             ?>
         </form>

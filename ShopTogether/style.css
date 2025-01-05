@@ -1,305 +1,294 @@
-/* =================================== */
-/* 1) Import de la police CherryBombOne */
-/* =================================== */
+/****************************/
+/* 1) Import de la police   */
+/****************************/
 @font-face {
     font-family: "CherryBombOne-Regular";
     src: url("Ressources/fonts/Cherry_Bomb_One/CherryBombOne-Regular.ttf");
-}
-
-/* =================================== */
-/* 2) Reset et réglages globaux        */
-/* =================================== */
-html, body {
+  }
+  
+  /****************************/
+  /* 2) Reset / Globaux       */
+  /****************************/
+  :root {
+    --mainColor: #116cbb;
+    --mainColorHover: #0d5b9a;
+    --grayColor: #f8f8f8;
+    --borderColor: #ddd;
+  }
+  
+  html, body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif; /* à adapter selon le goût */
-    /* Important pour le responsive */
-    /* (Tu l'as déjà, mais je le remets au cas où) */
+    font-family: Arial, sans-serif;
     box-sizing: border-box;
-}
-
-*, *::before, *::after {
+    overflow-x: hidden; /* Évite le scroll horizontal sur mobile */
+  }
+  *, *::before, *::after {
     box-sizing: inherit;
-}
-
-/* =================================== */
-/* 3) Page de login                    */
-/* =================================== */
-
-/* -- Fond de la page login -- */
-.body_login {
-    background-color: #116cbb; ;
-}
-
-/* -- Conteneur principal du login -- */
-.main_login {
-    width: 100%;
-    height: 90vh;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-}
-.main_login form h1 a img{
-    width: 15rem;
-    padding: -1rem;
-}
-
-/* -- Le formulaire de login -- */
-.LoginForm {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: flex-start;
-    width: max-content;
-    backdrop-filter: blur(10px);
-    background-color: rgb(255, 255, 255);
-    padding: 2rem 3rem;
-    border-radius: 2rem;
-
-    box-shadow:
-        rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-        rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-}
-
-.LoginForm h1 {
-    width: 100%;
-    text-align: center;
-}
-
-.LoginForm label {
-    width: 100%;
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
-}
-
-.LoginForm input, .LoginForm select {
-    width: 100%;
-    padding: 0.3rem 0 0.3rem 0.5rem;
-    font-size: 1.2rem;
-    margin-top: 0.2rem;
+  }
+  
+  /* Boutons "bleus" réutilisables */
+  .btn {
+    background-color: var(--mainColor);
+    color: #fff;
     border: none;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 1rem;
-}
-
-/* -- Bouton "Sign In" -- */
-.LoginForm .buttonsignin {
-    width: 66%;
-    font-size: 1rem;
-    padding: 0.5rem;
+    border-radius: 0.3rem;
     cursor: pointer;
-        border: none;
-    background-color: #116cbbae;
-    border-radius: 1rem;
-}
+    transition: background-color 200ms ease-in;
+  }
+  .btn:hover {
+    background-color: var(--mainColorHover);
+  }
+  
+  /* Blocs / cartes réutilisables */
+  .card {
+    background-color: #fff;
+    border: 1px solid var(--borderColor);
+    border-radius: 0.3rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    padding: 1rem;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  
+  .selectedLink{
+    background-color: #0d5b9a1b;
+    border-radius: 3rem;
+  }
 
-/* -- Bloc contenant le bouton + sign up -- */
-.LoginForm div {
-    width: 100%;
+  /****************************/
+  /* 3) Page de login         */
+  /****************************/
+/* Page d’authentification : ressemble à .NewListPage ou .ListPage */
+main.AuthPage {
+    width: 90%;
+    max-width: 600px;
+    margin: 2rem auto; /* plus d’espace sur le dessus */
+    padding: 1.5rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.3rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  
+  /* Le formulaire lui-même (ressemble à .LoginForm, mais épuré) */
+  .AuthForm {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+  }
+  
+  .AuthForm__logo {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .AuthForm__logo img {
+    width: 200px; /* ajuste si tu veux */
+    height: auto;
+  }
+  
+  /* Titres, labels, inputs, etc. */
+  .AuthForm label {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .AuthForm input,
+  .AuthForm select {
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+  }
+  
+  /* Bouton principal */
+  .btn {
+    background-color: #116cbb;
+    color: #fff;
+    border: none;
+    border-radius: 0.3rem;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 200ms ease-in;
+  }
+  .btn:hover {
+    background-color: #0d5b9a;
+  }
+  
+  /* Zone d'actions (Sign In + lien Sign up) */
+  .AuthForm__actions {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
-}
-
-.LoginForm div p {
-    width: 40%;
-    margin: 0;
-    text-align: right;
-}
-
-.LoginForm p {
-    width: 100%;
+  }
+  
+  /* Lien “Forgot password?” (optionnel) */
+  .AuthForm__forgot {
     text-align: center;
-    margin-top: 0.5rem;
-}
-
-#wrongcredentials {
-    margin: 0;
+    margin: 0.5rem 0;
+  }
+  
+  /* Message d’erreur */
+  .errorMsg {
     color: red;
     font-weight: bold;
-}
-
-/* =================================== */
-/* 4) En-tête globale (header) + Burger*/
-/* =================================== */
-#main_header {
+    margin: 0;
+    text-align: center;
+  }
+  
+  
+  /****************************/
+  /* 4) Header + Burger       */
+  /****************************/
+  #main_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0;
-    padding: 1rem 1rem;
-    background-color: #f8f8f8;
+    padding: 1rem;
+    background-color: var(--grayColor);
     box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
-
-/* Logo ou nom du site */
-#main_header #logo {
+  }
+  #logo {
     display: flex;
     align-items: center;
     text-decoration: none;
     color: black;
-}
-#main_header h1 {
-    margin: 0;
-    padding: 0;
-    font-family: "CherryBombOne-Regular";
-    font-size: 1.5rem;
-}
-
-/* Le bouton burger (caché sur desktop, visible sur mobile) */
-#burgerMenu {
+  }
+  #main_header img{
+    width: 10rem;
+  }
+  #burgerMenu {
     display: none;
     font-size: 1.5rem;
     cursor: pointer;
-    user-select: none; /* évite la sélection au clic */
-}
-
-/* La nav principale */
-#top_nav {
+    user-select: none;
+  }
+  #top_nav {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     gap: 1rem;
-    flex: 1 1 auto;  /* Permet de grandir au centre */
+    flex: 1 1 auto;
     justify-content: center;
-}
-
-#top_nav a {
+  }
+  #top_nav a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
     padding: 0.5rem;
     transition: color 0.2s;
-}
-#top_nav a:hover {
-    color: #116cbb;
-}
-
-/* L’icône compte (extrémité droite) */
-#accountBtn {
+  }
+  #top_nav a:hover {
+    color: var(--mainColor);
+  }
+  #accountBtn {
     text-decoration: none;
-}
-#accountBtn img {
-    width: 2rem;
-    height: 2rem;
+  }
+  #accountBtn img {
+    width: 4rem;
+    height: 4rem;
     padding: 0.2rem;
-}
-
-/* 
-   Sur clic du burger => .open sur #top_nav
-   => Sur mobile, #top_nav est "display: none;" 
-      tant qu'il n'a pas .open
-*/
-#top_nav.open {
+    border-radius: 100%;
+  }
+  /* Menu ouvert en mobile (.open) */
+  #top_nav.open {
     display: flex;
     z-index: 10;
-}
-
-/* =================================== */
-/* 5) Media queries pour la nav mobile */
-/* =================================== */
-@media (max-width: 768px) {
-    /* Sur mobile, on affiche le burger */
+  }
+  @media (max-width: 768px) {
     #burgerMenu {
-        display: block;
+      display: block;
     }
-    /* On cache la nav tant qu'elle n'a pas la classe .open */
     #top_nav {
-        display: none;
-        position: absolute;
-        top: 60px; /* en-dessous du header */
-        left: 0;
-        width: 100%;
-        flex-flow: column nowrap;
-        align-items: flex-start;
-        background-color: #f8f8f8;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        padding: 1rem;
-        gap: 0.5rem;
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      background-color: var(--grayColor);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      padding: 1rem;
+      gap: 0.5rem;
     }
     #logo h1 {
-        font-size: 1.2rem;
+      font-size: 1.2rem;
     }
-}
-
-/* =================================== */
-/* 6) Catégories (ex: page products)   */
-/* =================================== */
-#categories {
+  }
+  
+  /****************************/
+  /* 5) Catégories            */
+  /****************************/
+  #categories {
     width: 8rem;
     padding: 1rem;
-}
-#categories label {
-    display: flex;
-    flex-flow: column-reverse nowrap;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-}
-#categories input {
-    display: none;
-}
-#categories input:checked + label {
-    font-weight: bold;
-    font-size: 1.7rem;
-}
-#categories img {
+    text-align: center;
+  }
+  #categories img {
     width: 100%;
     border-radius: 50%;
-}
-#field_categories {
+  }
+  #field_categories {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
+    width: 100%;
     margin: 0;
     padding: 0;
-    width: 100%;
-}
-
-/* =================================== */
-/* 7) Création de produit (ex: page products) */
-/* =================================== */
-#createproduct {
+  }
+  #categories input {
+    display: none;
+  }
+  #categories label {
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    align-items: center;
+    font-size: 1.5rem;
+  }
+  #categories input:checked + label {
+    font-weight: bold;
+    font-size: 1.7rem;
+  }
+  
+  /****************************/
+  /* 6) Création de produit   */
+  /****************************/
+  #createproduct {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-}
-#createproduct button {
-    height: 3rem;
+  }
+  #createproduct button {
     width: 5rem;
+    height: 3rem;
     margin: 1rem;
-}
-#infosproductcreate {
+  }
+  #infosproductcreate {
     display: flex;
     flex-flow: column nowrap;
-}
-#titleproduct {
+  }
+  #titleproduct {
     width: 100%;
     text-align: center;
-}
-#descproduct img {
+  }
+  #descproduct img {
     width: 3rem;
-}
-
-/* =================================== */
-/* 8) Page de détail d'une liste (List.php) */
-/* =================================== */
-/* On cible <main class="ListPage"> pour éviter d'écraser le login */
-main.ListPage {
+  }
+  
+  /****************************************************/
+  /* 7) Page Liste (List.php) + Ajout/filtre produits */
+  /****************************************************/
+  main.ListPage {
     width: 90%;
     max-width: 1200px;
     margin: 1rem auto;
     padding: 1rem;
     background-color: #fff;
-}
-
-/* Le "header" de la liste */
-#List {
+  }
+  #List {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -307,188 +296,221 @@ main.ListPage {
     margin-bottom: 1.5rem;
     border-bottom: 1px solid #ccc;
     padding-bottom: 1rem;
-}
-#List > * {
+  }
+  #List > * {
     margin: 0.5rem 1rem;
-}
-
-#listTitle {
+  }
+  #listTitle {
     text-align: center;
-}
-#listTitle h2 {
+  }
+  #listTitle h2 {
     font-size: 1.8rem;
     margin: 0;
-    color: #116cbb;
-}
-#listTitle p {
+    color: var(--mainColor);
+  }
+  #listTitle p {
     margin: 0.3rem 0;
     font-size: 0.9rem;
     color: #666;
-}
-
-#List form {
+  }
+  #List form {
     display: flex;
     flex-flow: column nowrap;
-}
-
-/* Liste des produits d'une liste */
-#listElements {
+  }
+  #listElements {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: flex-start;
-}
-
-/* Chaque produit (un <form>) */
-#listElements form {
+  }
+  #listElements form {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     width: 100%;
-    max-width: 600px; /* Limit. Sur mobile, on forcera 100% */
+    max-width: 600px;
+    margin-bottom: 0.5rem;
     background-color: #f6faff;
     border: 1px solid #ddd;
     border-radius: 0.3rem;
-    margin-bottom: 0.5rem;
     padding: 0.3rem 0.5rem;
     box-shadow: 0 2px 3px rgba(0,0,0,0.05);
-}
-
-/* Bouton poubelle */
-#listElements button {
+  }
+  #listElements button {
     border: none;
     background: transparent;
     transition: transform 200ms ease-in-out;
     cursor: pointer;
     margin-right: 0.5rem;
-}
-#listElements button:hover {
+  }
+  #listElements button:hover {
     transform: scale(1.2);
-}
-#product_informations {
+  }
+  #product_informations {
     display: flex;
     flex-flow: column nowrap;
-}
-.trash {
+  }
+  .trash {
     width: 1.5rem;
     height: 1.5rem;
-}
-
-/* Zone d’ajout de produit + filtre */
-#AjoutProduit {
+  }
+  
+  #AjoutProduit {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     margin: 1rem 0;
-}
-#AjoutProduit form {
+  }
+  #AjoutProduit form {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     gap: 0.5rem;
     margin: 0.3rem;
-}
-#AjoutProduit label {
+  }
+  #AjoutProduit label {
     font-weight: 600;
-}
-#AjoutProduit select,
-#AjoutProduit input[type="text"] {
+  }
+  #AjoutProduit select,
+  #AjoutProduit input[type="text"] {
     padding: 0.3rem;
     border: 1px solid #ccc;
     border-radius: 0.3rem;
-}
-#AjoutProduit button {
-    background-color: #116cbb;
+  }
+  #AjoutProduit button {
+    background-color: var(--mainColor);
     color: #fff;
     border: none;
     padding: 0.4rem 0.8rem;
     border-radius: 0.3rem;
     cursor: pointer;
     transition: background-color 200ms ease-in;
-}
-#AjoutProduit button:hover {
-    background-color: #0d5b9a;
-}
-
-/* Bouton / lien "Shop it NOW" */
-#ShopTheList {
+  }
+  #AjoutProduit button:hover {
+    background-color: var(--mainColorHover);
+  }
+  #ShopTheList {
     text-align: center;
     margin: 2rem 0;
-}
-#ShopTheList a {
+  }
+  #ShopTheList a {
     text-decoration: none;
     color: #fff;
-    background-color: #116cbb;
+    background-color: var(--mainColor);
     padding: 0.6rem 1rem;
     border-radius: 0.3rem;
     transition: background-color 200ms ease-in;
-}
-#ShopTheList a:hover {
-    background-color: #0d5b9a;
-}
-
-/* =================================== */
-/* 9) Page de listing (plusieurs listes) */
-/* =================================== */
-main.ShoppingListIndex {
+  }
+  #ShopTheList a:hover {
+    background-color: var(--mainColorHover);
+  }
+  /* Responsivité ListPage */
+  @media (max-width: 600px) {
+    main.ListPage {
+      width: 95%;
+      max-width: 95%;
+      margin: 1rem auto;
+      padding: 1rem;
+    }
+    #List {
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    #List > * {
+      margin: 0.5rem 0;
+      max-width: 100%;
+    }
+    #AjoutProduit form {
+      flex-flow: column nowrap;
+      align-items: stretch;
+      margin: 0.5rem 0;
+    }
+    #AjoutProduit form label,
+    #AjoutProduit form select,
+    #AjoutProduit form input[type="text"],
+    #AjoutProduit form button {
+      width: 100%;
+      margin: 0.2rem 0;
+    }
+    #listElements form {
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      max-width: 100% !important;
+    }
+    #listElements button {
+      margin-bottom: 0.5rem;
+    }
+    #product_informations {
+      align-self: stretch;
+    }
+  }
+  
+  /****************************/
+  /* 8) Page de listing listes*/
+  /****************************/
+  main.ShoppingListIndex {
     width: 90%;
     max-width: 1200px;
     margin: 1rem auto;
     padding: 1rem;
-}
-#newShoppingListLink {
+  }
+  #newShoppingListLink {
     display: inline-block;
     margin-bottom: 1rem;
     padding: 0.5rem 1rem;
-    background-color: #116cbb;
+    background-color: var(--mainColor);
     color: #fff;
     border-radius: 0.3rem;
     text-decoration: none;
     transition: background-color 200ms ease-in;
-}
-#newShoppingListLink:hover {
-    background-color: #0d5b9a;
-}
-
-/* Galerie de listes */
-#shoppingListGallery {
+  }
+  #newShoppingListLink:hover {
+    background-color: var(--mainColorHover);
+  }
+  #shoppingListGallery {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
     align-items: stretch;
-    flex-flow: row wrap;
+    justify-content: center;
     gap: 1rem;
-}
-#shoppingListGallery > div {
+  }
+  #shoppingListGallery > div {
     background-color: #f7f7ff;
     border: 1px solid #ddd;
     border-radius: 0.3rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     padding: 1rem;
-    flex: 1 1 250px; /* répartition fluide */
+    flex: 1 1 250px;
     max-width: 300px;
-}
-#shoppingListGallery > div a {
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  #shoppingListGallery > div a {
     text-decoration: none;
-    color: #551a8b; /* violet par défaut */
-}
-#shoppingListGallery > div a:hover {
+    color: #551a8b;
+  }
+  #shoppingListGallery > div a:hover {
     text-decoration: underline;
-}
-#shoppingListGallery h3 {
+  }
+  #shoppingListGallery h3 {
     margin: 0 0 0.3rem 0;
-    color: #116cbb;
-}
-#shoppingListGallery p {
+    color: var(--mainColor);
+  }
+  #shoppingListGallery p {
     margin: 0.2rem 0;
     font-size: 0.9rem;
-}
-
-/* =================================== */
-/* 10) Page de création de liste (new_list.php) */
-/* =================================== */
-main.NewListPage {
+  }
+  #shoppingListGallery div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  
+  /****************************/
+  /* 9) Page new_list.php     */
+  /****************************/
+  main.NewListPage {
     width: 90%;
     max-width: 600px;
     margin: 1rem auto;
@@ -497,82 +519,79 @@ main.NewListPage {
     border: 1px solid #ddd;
     border-radius: 0.3rem;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-main.NewListPage p {
+  }
+  main.NewListPage p {
     margin-bottom: 0.5rem;
-}
-main.NewListPage form {
+  }
+  main.NewListPage form {
     display: flex;
     flex-flow: column nowrap;
     gap: 0.5rem;
     margin-top: 1rem;
-}
-main.NewListPage form i {
-    color: #116cbb;
+  }
+  main.NewListPage form i {
+    color: var(--mainColor);
     font-weight: bold;
-    display: block;
     margin-bottom: 0.5rem;
-}
-main.NewListPage label {
+  }
+  main.NewListPage label {
     font-weight: bold;
-}
-main.NewListPage input[type="text"] {
+  }
+  main.NewListPage input[type="text"] {
     padding: 0.3rem;
     border: 1px solid #ccc;
     border-radius: 0.3rem;
-}
-main.NewListPage button {
-    background-color: #116cbb;
+  }
+  main.NewListPage button {
+    background-color: var(--mainColor);
     color: #fff;
     border: none;
     border-radius: 0.3rem;
     padding: 0.5rem 1rem;
     cursor: pointer;
     transition: background-color 200ms ease-in;
-}
-main.NewListPage button:hover {
-    background-color: #0d5b9a;
-}
-
-/* ================================ */
-/* 11) Page de listing des produits */
-/* ================================ */
-main.ProductsPage {
+  }
+  main.NewListPage button:hover {
+    background-color: var(--mainColorHover);
+  }
+  
+  /****************************/
+  /* 10) Page produits        */
+  /****************************/
+  main.ProductsPage {
     width: 90%;
     max-width: 1200px;
     margin: 1.5rem auto;
     padding: 1rem;
     background-color: #fff;
-}
-#addNewProductBtn {
+  }
+  #addNewProductBtn {
     display: inline-block;
     margin-bottom: 1.5rem;
     padding: 0.6rem 1.2rem;
-    background-color: #116cbb;
+    background-color: var(--mainColor);
     color: #fff;
     border-radius: 0.3rem;
     text-decoration: none;
     font-weight: 600;
     transition: background-color 200ms ease-in;
-}
-#addNewProductBtn:hover {
-    background-color: #0d5b9a;
-}
-#productsGallery {
+  }
+  #addNewProductBtn:hover {
+    background-color: var(--mainColorHover);
+  }
+  #productsGallery {
     display: flex;
     flex-flow: row wrap;
     gap: 1rem;
     align-items: stretch;
     justify-content: center;
-}
-
-/* Cartes produits */
-.product_card {
+  }
+  .product_card {
     position: relative;
     width: 100%;
     max-width: 320px;
     background-color: #f8fbff;
-    border: 1px solid #ddd;
+    border: 1px solid var(--borderColor);
     border-radius: 0.5rem;
     padding: 1rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -580,12 +599,12 @@ main.ProductsPage {
     display: flex;
     flex-flow: column nowrap;
     gap: 0.5rem;
-}
-.product_card:hover, #shoppingListGallery div:hover {
+  }
+  .product_card:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-.trashBtn {
+  }
+  .trashBtn {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -595,25 +614,25 @@ main.ProductsPage {
     transition: transform 200ms ease-in-out;
     padding: 0;
     margin: 0;
-}
-.trashBtn:hover {
+  }
+  .trashBtn:hover {
     transform: scale(1.2);
-}
-.trash {
+  }
+  .trash {
     width: 3rem;
     height: 3rem;
-}
-.product_card h3 {
+  }
+  .product_card h3 {
     margin: 0;
     font-size: 1.1rem;
-    color: #116cbb;
-}
-.categories_for_product {
+    color: var(--mainColor);
+  }
+  .categories_for_product {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-}
-.single_cat {
+  }
+  .single_cat {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -622,16 +641,16 @@ main.ProductsPage {
     border: 1px solid #ccc;
     border-radius: 0.3rem;
     padding: 0.2rem 0.5rem;
-}
-.single_cat img {
+  }
+  .single_cat img {
     width: 1.4rem;
     height: 1.4rem;
-}
-
-/* ========================================= */
-/* 12) Page de création d'un nouveau produit */
-/* ========================================= */
-main.NewProductCreation {
+  }
+  
+  /****************************************************/
+  /* 11) Page création nouveau produit               */
+  /****************************************************/
+  main.NewProductCreation {
     width: 90%;
     max-width: 1200px;
     margin: 1rem auto 2rem auto;
@@ -640,43 +659,43 @@ main.NewProductCreation {
     border: 1px solid #ddd;
     border-radius: 0.3rem;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-main.NewProductCreation form i {
+  }
+  main.NewProductCreation form i {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #116cbb;
-}
-#titleproduct {
+    color: var(--mainColor);
+  }
+  #titleproduct {
     text-align: left;
     font-size: 1.4rem;
-    margin: 0.5rem 0 1rem 0;
-    color: #116cbb;
-}
-#createproduct {
+    margin: 0.5rem 0 1rem;
+    color: var(--mainColor);
+  }
+  #createproduct {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
-}
-#infosproductcreate {
+  }
+  #infosproductcreate {
     display: flex;
     flex-flow: column nowrap;
     gap: 0.3rem;
-}
-#infosproductcreate label {
+  }
+  #infosproductcreate label {
     font-weight: bold;
     font-size: 1rem;
-}
-#infosproductcreate input[type="text"] {
+  }
+  #infosproductcreate input[type="text"] {
     padding: 0.4rem;
     border: 1px solid #ccc;
     border-radius: 0.3rem;
     width: 250px;
-}
-#createproduct button[type="submit"] {
-    background-color: #116cbb;
+  }
+  #createproduct button[type="submit"] {
+    background-color: var(--mainColor);
     color: #fff;
     border: none;
     border-radius: 0.3rem;
@@ -684,144 +703,66 @@ main.NewProductCreation form i {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 200ms ease-in;
-}
-#createproduct button[type="submit"]:hover {
-    background-color: #0d5b9a;
-}
-#field_categories {
+  }
+  #createproduct button[type="submit"]:hover {
+    background-color: var(--mainColorHover);
+  }
+  #field_categories {
     border: none;
     padding: 0;
     margin: 0;
     gap: 1rem;
-}
-#field_categories > legend {
+  }
+  #field_categories > legend {
     font-weight: bold;
     font-size: 1.2rem;
     margin-bottom: 1rem;
-}
-#categories {
+  }
+  #categories {
     width: 7rem;
     padding: 0.5rem;
     text-align: center;
     transition: transform 0.1s;
-}
-#categories:hover {
+  }
+  #categories:hover {
     transform: scale(1.03);
-}
-#categories img {
+  }
+  #categories img {
     width: 90%;
     max-width: 4rem;
     height: auto;
     border-radius: 50%;
     margin-bottom: 0.3rem;
-}
-#categories label {
+  }
+  #categories label {
     display: flex;
     flex-flow: column-reverse nowrap;
     align-items: center;
-    justify-content: center;
     font-size: 1rem;
     cursor: pointer;
     transition: color 200ms;
-}
-#categories label:hover {
-    color: #116cbb;
-}
-#categories input {
+  }
+  #categories label:hover {
+    color: var(--mainColor);
+  }
+  #categories input {
     display: none;
-}
-#categories input:checked + label {
+  }
+  #categories input:checked + label {
     font-weight: 600;
-    color: #116cbb;
+    color: var(--mainColor);
     transform: scale(1.05);
-}
-#categories input:checked + label img {
-    outline: 2px solid #116cbb;
+  }
+  #categories input:checked + label img {
+    outline: 2px solid var(--mainColor);
     outline-offset: 2px;
     border-radius: 50%;
-}
-
-/* ========================= */
-/* 13) Ajustements mobiles   */
-/* ========================= */
-
-/* Sécurité : si un tout petit débordement persiste, on le masque */
-html, body {
-    overflow-x: hidden; /* on cache le scroll horizontal */
   }
   
-  /* 
-     Pour les écrans de largeurs <= 600px, 
-     on s’assure que tout le contenu ne déborde pas 
-  */
-  @media (max-width: 600px) {
-  
-    /* 
-       1) Le conteneur principal (main.ListPage).
-          On réduit les marges et on évite tout dépassement.
-    */
-    main.ListPage {
-      margin: 1rem auto !important;
-      padding: 1rem !important;
-      width: 95% !important;   /* un peu moins que 100% pour éviter des arrondis */
-      max-width: 95% !important;
-    }
-  
-    /* 
-       2) Les blocs #List et ses enfants : 
-          On force un affichage vertical au lieu de row wrap. 
-          Cela évite que des éléments partent sur les côtés.
-    */
-    #List {
-      flex-flow: column nowrap;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-    #List > * {
-      margin: 0.5rem 0; /* plus de marge verticale, pas horizontale */
-      max-width: 100%;
-    }
-  
-    /* 3) Les formulaires de #AjoutProduit : 
-         On empile verticalement label, select, input, button.
-         Ainsi, aucune largeur ne dépasse l'écran. 
-    */
-    #AjoutProduit form {
-      display: flex;
-      flex-flow: column nowrap;
-      align-items: stretch;
-      margin: 0.5rem 0;
-    }
-    /* Chaque élément prend toute la largeur disponible */
-    #AjoutProduit form label,
-    #AjoutProduit form select,
-    #AjoutProduit form input[type="text"],
-    #AjoutProduit form button {
-      width: 100%;
-      max-width: 100%;
-      margin: 0.2rem 0;
-    }
-  
-    /* 4) Les forms de #listElements (les produits) 
-         => on empile bouton poubelle + contenu. 
-    */
-    #listElements form {
-      flex-flow: column nowrap;
-      align-items: flex-start;
-      max-width: 100% !important;
-    }
-    #listElements button {
-      margin-bottom: 0.5rem; /* le bouton en haut, puis le texte en-dessous */
-    }
-    #listElements #product_informations {
-      align-self: stretch; /* prend toute la largeur */
-    }
-  }
-
-/* ================================ */
-/* 14) Page ShopList (checkbox mode)*/
-/* ================================ */
-main.ShopListPage {
+  /****************************/
+  /* 12) Page ShopList        */
+  /****************************/
+  main.ShopListPage {
     width: 90%;
     max-width: 600px;
     margin: 1rem auto;
@@ -829,57 +770,44 @@ main.ShopListPage {
     padding: 1rem;
     border-radius: 0.3rem;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-
-/* Conteneur d'une ligne (article) */
-.ListCheckBoxDiv {
+  }
+  .ListCheckBoxDiv {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: space-between; /* Sépare le bloc nom+checkbox de l’input price */
+    justify-content: space-between;
     background-color: #f6faff;
     border: 1px solid #ddd;
     border-radius: 0.3rem;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-/* Le bloc contenant la checkbox et le nom */
-.CheckBoxElement_NameAndCheckBox {
+  }
+  .CheckBoxElement_NameAndCheckBox {
     display: flex;
-    flex-flow: column nowrap; /* Nom + note empilés */
+    flex-flow: column nowrap;
     gap: 0.2rem;
-}
-
-.CheckBoxElement_NameAndCheckBox .ProductName {
+  }
+  .CheckBoxElement_NameAndCheckBox .ProductName {
     font-size: 1rem;
     margin: 0;
-}
-
-/* Par défaut, on masque l’input price */
-.PriceInput {
+  }
+  .PriceInput {
     display: none;
     width: 6rem;
     padding: 0.3rem;
     border: 1px solid #ccc;
     border-radius: 0.3rem;
-}
-
-/* Style quand la checkbox est cochée */
-.CheckItem input[type="checkbox"]:checked ~ .ProductName {
+  }
+  .CheckItem input[type="checkbox"]:checked ~ .ProductName {
     text-decoration: line-through;
     color: #999;
-}
-
-.CheckItem input[type="checkbox"]:checked ~ .PriceInput {
+  }
+  .CheckItem input[type="checkbox"]:checked ~ .PriceInput {
     display: block;
-}
-
-/* Bouton DONE */
-#ShopListForm .DoneButton {
-    display: inline-block;
-    background-color: #116cbb;
+  }
+  .DoneButton {
+    background-color: var(--mainColor);
     color: #fff;
     border: none;
     padding: 0.6rem 1rem;
@@ -888,144 +816,107 @@ main.ShopListPage {
     cursor: pointer;
     transition: background-color 200ms ease-in;
     margin-top: 1rem;
-}
-#ShopListForm .DoneButton:hover {
-    background-color: #0d5b9a;
-}
-
-/* Responsive si besoin */
-@media (max-width: 600px) {
-  .ListCheckBoxDiv {
-    flex-flow: column nowrap;
-    align-items: flex-start;
-    gap: 0.5rem;
   }
-}
-
-/* ================================ */
-/* 15) Page ArchivedList (listes archivées) */
-/* ================================ */
-
-#ArchivedListMain {
+  .DoneButton:hover {
+    background-color: var(--mainColorHover);
+  }
+  @media (max-width: 600px) {
+    .ListCheckBoxDiv {
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+  
+  /****************************/
+  /* 13) Page ArchivedList    */
+  /****************************/
+  #ArchivedListMain {
     width: 90%;
     max-width: 800px;
     margin: 2rem auto;
     padding: 1.5rem;
     background-color: #fff;
     border-radius: 0.3rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Informations générales de la liste archivée */
-#InformationsFromArchivedList {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  #InformationsFromArchivedList {
     text-align: center;
     margin-bottom: 1.5rem;
     border-bottom: 1px solid #ccc;
     padding-bottom: 1rem;
-}
-
-#InformationsFromArchivedList h2 {
+  }
+  #InformationsFromArchivedList h2 {
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
-    color: #116cbb;
-}
-
-#InformationsFromArchivedList p {
+    color: var(--mainColor);
+  }
+  #InformationsFromArchivedList p {
     font-size: 1rem;
     color: #666;
     margin: 0.2rem 0;
-}
-
-/* Liste des produits archivés */
-#ProductsFromArchivedList {
+  }
+  #ProductsFromArchivedList {
     display: flex;
     flex-flow: column nowrap;
     gap: 0.8rem;
-}
-
-/* Produit archivé - Style de base */
-.ArchivedProduct {
+  }
+  .ArchivedProduct {
     display: flex;
     flex-flow: column nowrap;
     padding: 0.8rem 1rem;
     border-radius: 0.3rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-/* Produit acheté */
-.ArchivedProduct.bought {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .ArchivedProduct.bought {
     background-color: #e6f9e6;
     border: 1px solid #8fd88f;
     color: #2b7a2b;
-}
-
-.ArchivedProduct.bought p {
-    margin: 0.3rem 0;
-}
-
-/* Produit non acheté */
-.ArchivedProduct.notbought {
+  }
+  .ArchivedProduct.notbought {
     background-color: #fde8e8;
     border: 1px solid #e08c8c;
     color: #a52a2a;
-}
-
-.ArchivedProduct.notbought p {
+  }
+  .ArchivedProduct p {
     margin: 0.3rem 0;
-}
-
-/* Texte des produits */
-.ArchivedProduct p {
     font-size: 1rem;
-    margin: 0.2rem 0;
-}
-
-.ArchivedProduct p:nth-child(1) {
+  }
+  .ArchivedProduct p:nth-child(1) {
     font-weight: bold;
     font-size: 1.1rem;
-}
-
-/* Prix spécifique */
-.ArchivedProduct p:last-child {
+  }
+  .ArchivedProduct p:last-child {
     font-style: italic;
     font-size: 0.9rem;
     color: #555;
-}
-
-/* Responsivité pour mobile */
-@media (max-width: 600px) {
+  }
+  @media (max-width: 600px) {
     #ArchivedListMain {
-        width: 95%;
-        padding: 1rem;
+      width: 95%;
+      padding: 1rem;
     }
-
     .ArchivedProduct {
-        padding: 0.5rem;
+      padding: 0.5rem;
     }
-
     #InformationsFromArchivedList h2 {
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
-
     #InformationsFromArchivedList p {
-        font-size: 0.9rem;
+      font-size: 0.9rem;
     }
-
     .ArchivedProduct p {
-        font-size: 0.9rem;
+      font-size: 0.9rem;
     }
-
     .ArchivedProduct p:nth-child(1) {
-        font-size: 1rem;
+      font-size: 1rem;
     }
-}
-
-/* ================================ */
-/* 16) Page Account (Mon Compte)    */
-/* ================================ */
-
-/* Container principal */
-main.AccountPage {
+  }
+  
+  /****************************/
+  /* 14) Page Account         */
+  /****************************/
+  main.AccountPage {
     width: 90%;
     max-width: 600px;
     margin: 1rem auto;
@@ -1033,17 +924,14 @@ main.AccountPage {
     padding: 1.5rem 1rem;
     border-radius: 0.3rem;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-
-main.AccountPage h2 {
+  }
+  main.AccountPage h2 {
     text-align: center;
     font-size: 1.8rem;
-    margin: 0 0 1rem 0;
-    color: #116cbb;
-}
-
-/* Message d'alerte / succès */
-.AccountMessage {
+    margin: 0 0 1rem;
+    color: var(--mainColor);
+  }
+  .AccountMessage {
     background-color: #fefce8;
     border: 1px solid #fcf1bb;
     border-radius: 0.3rem;
@@ -1051,81 +939,67 @@ main.AccountPage h2 {
     padding: 0.8rem;
     color: #333;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-/* Image de profil */
-.AccountImage {
+  }
+  .AccountImage {
     text-align: center;
     margin-bottom: 1rem;
-}
-
-.AccountImage img {
+  }
+  .AccountImage img {
     width: 100px;
     height: 100px;
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid #ccc;
-}
-
-/* Formulaire pour l’upload image */
-.ImageUploadForm {
+  }
+  .ImageUploadForm {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
     justify-content: center;
-}
-
-.ImageUploadForm label {
+  }
+  .ImageUploadForm label {
     font-weight: 600;
-}
-
-.UploadImageBtn {
-    background-color: #116cbb;
+  }
+  .UploadImageBtn {
+    background-color: var(--mainColor);
     color: #fff;
     padding: 0.4rem 1rem;
     border-radius: 0.3rem;
     cursor: pointer;
     border: none;
     transition: background-color 200ms ease-in;
-}
-
-.UploadImageBtn:hover {
-    background-color: #0d5b9a;
-}
-
-/* Formulaire de mise à jour du compte */
-.AccountForm {
+  }
+  .UploadImageBtn:hover {
+    background-color: var(--mainColorHover);
+  }
+  .AccountForm {
     display: flex;
     flex-flow: column nowrap;
     gap: 0.8rem;
-}
-
-.AccountForm label {
+  }
+  .AccountForm label {
     font-weight: 600;
     margin-bottom: 0.2rem;
-}
-
-.AccountForm input[type="text"],
-.AccountForm input[type="email"],
-.AccountForm input[type="password"],
-.AccountForm select {
+  }
+  .AccountForm input[type="text"],
+  .AccountForm input[type="email"],
+  .AccountForm input[type="password"],
+  .AccountForm select {
     width: 100%;
     padding: 0.4rem;
     border: 1px solid #ccc;
     border-radius: 0.3rem;
     font-size: 1rem;
-}
-
-.AccountForm hr {
+  }
+  .AccountForm hr {
     border: none;
     border-top: 1px solid #ccc;
     margin: 1rem 0;
-}
-
-.UpdateAccountBtn {
-    background-color: #116cbb;
+  }
+  .UpdateAccountBtn {
+    background-color: var(--mainColor);
     color: #fff;
     border: none;
     border-radius: 0.3rem;
@@ -1134,19 +1008,15 @@ main.AccountPage h2 {
     cursor: pointer;
     transition: background-color 200ms ease-in;
     align-self: center;
-}
-
-.UpdateAccountBtn:hover {
-    background-color: #0d5b9a;
-}
-
-/* Zone et bouton logout */
-.LogoutZone {
+  }
+  .UpdateAccountBtn:hover {
+    background-color: var(--mainColorHover);
+  }
+  .LogoutZone {
     margin-top: 2rem;
     text-align: center;
-}
-
-.LogoutBtn {
+  }
+  .LogoutBtn {
     display: inline-block;
     padding: 0.5rem 1rem;
     background-color: #999;
@@ -1154,20 +1024,17 @@ main.AccountPage h2 {
     text-decoration: none;
     border-radius: 0.3rem;
     transition: background-color 200ms ease-in;
-}
-
-.LogoutBtn:hover {
+  }
+  .LogoutBtn:hover {
     background-color: #777;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
+  }
+  @media (max-width: 600px) {
     main.AccountPage {
-        width: 95%;
-        padding: 1rem;
+      width: 95%;
+      padding: 1rem;
     }
     .ImageUploadForm {
-        flex-flow: column nowrap;
+      flex-flow: column nowrap;
     }
-}
-
+  }
+  

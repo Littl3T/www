@@ -28,3 +28,24 @@ html,body{
 .ingredient{
     height: 3rem;
 }
+
+#Top10Restaurants{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.restuarantsinfos{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+.boldy{
+    font-weight: bold;
+}
+.restoimg{
+    width: 4rem;
+}

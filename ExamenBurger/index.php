@@ -1,8 +1,10 @@
 <?php
 include "_connexionBD.php";
-if(isset($_GET['burgerselected'])){
-    $id_buger = (int)$_GET['burgerselected'];
-}
+
+if(isset($_GET['villeselected'])){
+    $villeID= (int) $_GET['villeselected'];
+} else $villeID = 1
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,67 +16,55 @@ if(isset($_GET['burgerselected'])){
 </head>
 <body>
     <main>
-        <div id='topburger'>
+        <div id="Top10Restaurants">
             <?php
-            $reqburger = $bd->prepare('SELECT b.id_burger,b.nom, b.prix, b.stock, GROUP_CONCAT(i.nom) AS ingredient FROM burgers as b JOIN liste_ingredients as li ON li.id_burger=b.id_burger JOIN ingredients as i ON li.id_ingredient = i.id_ingredient GROUP BY b.id_burger ORDER BY b.stock DESC LIMIT 10');
-            $reqburger->execute();
-            while ($burger = $reqburger->fetch()) {
-                # Listes des ingrédients en array
-                $ingredients = explode(',',$burger["ingredient"]);
-                # Formatage de nom de l'image via l'id burger avec des 0 devant et png derniere
-                $idFormatte = $burger['id_burger'];
-                while (strlen($idFormatte) < 3) {
-                    $idFormatte = '0' . $idFormatte;
+            $reqrestaurants = $bd->prepare('SELECT v.id_ville,v.ville,v.code_pays, p.pays, COUNT(r.id_restaurant) AS NombreRestaurant FROM villes AS v JOIN restaurants AS r ON r.id_ville=v.id_ville JOIN pays AS p ON p.code=v.code_pays GROUP BY r.id_ville ORDER BY NombreRestaurant DESC, v.ville LIMIT 10;');
+            $reqrestaurants->execute();
+            $x = 1;
+            while($restaurant = $reqrestaurants->fetch()){
+                echo '<a href="index.php?villeselected='.$restaurant['id_ville'].'" class="restuarantsinfos ';
+                if($x<=3){echo "boldy";}
+                echo '">';
+                echo $x.' '.$restaurant['ville'].' :';
+                echo '<img src="flags/'.$restaurant['code_pays'].'.webp" alt="Drapeau Pays Restaurant">';
+                echo ' :'.$restaurant['pays'].': ';
+                for($y=0;$y< (int)$restaurant['NombreRestaurant'];$y++) {
+                    echo '<img src="icones/restaurant.png" alt="Restaurants" class="restoimg">';
                 }
-                $idFormatte = 'b'.$idFormatte.'.png';
-
-                # structure et iniformations html
-                echo '<a href="index.php?burgerselected='.$burger['id_burger'].'" class="burgerlist">';
-                echo '<img class=burger src="images/'.$idFormatte.'" alt="BurgerImage">';
-                echo "<p>". $burger['nom'].' - '. $burger['prix'].'€' . ' - '. $burger['stock'].': </p>';
-                foreach($ingredients as $ig){
-                    echo '<img class="ingredient" src="icones/'.$ig.'.png'.'" alt="IngredientImage">';
-                }
-                echo "</a>";
+                echo '</a>';
+                $x+=1;
             }
             ?>
         </div>
-        <div id="formulaire">
-            <form action="index.php">
-                <select name="burgerselected" id="burgerselected" method="GET">
-                    <?php
-                    $reqburgerfrom = $bd->prepare('SELECT b.nom, b.id_burger FROM burgers as b ORDER BY b.nom');
-                    $reqburgerfrom->execute();
-                    while ($burgeroption = $reqburgerfrom->fetch()){
-                        if(isset($id_buger)){
-                            if($id_buger === $burgeroption['id_burger']){
-                                $m='selected';
-                            } else $m ='';
-                        } else $m='';
-                        echo '<option value="'.$burgeroption["id_burger"].'"'.$m.'>'. $burgeroption["nom"] .'</option>';
-                    }
-                     ?>
-                </select>
-                <button type="submit">Voir les employés</button>
-            </form>
-            <div>
-                <?php
-                if(isset($id_buger)){
-                    $reqlistemployeerburger = $bd->prepare('SELECT br.nom as BurgerName, v.id_burger , e.nom, e.prenom, SUM(v.nombre) AS NombreVendu, br.prix*SUM(v.nombre) AS Somme FROM ventes AS v JOIN commandes AS c ON c.id_commande = v.id_commande JOIN employes AS e ON e.id_employe = c.id_employe JOIN burgers as br ON br.id_burger = v.id_burger WHERE v.id_burger=:id GROUP BY c.id_employe ORDER BY e.nom;');
-                    $reqlistemployeerburger->bindvalue('id',$id_buger);
-                    $reqlistemployeerburger->execute();
-                    $somme = 0;
-                    while ($employee = $reqlistemployeerburger->fetch()){
-                        echo '<p>'.$employee['nom'].' - '.$employee['prenom'].' : '.$employee['NombreVendu'].'</p>';
-                        echo '<p>'.$employee['Somme'].' €</p>';
-                        $somme += $employee['Somme'];
-                        $burgerName = $employee['BurgerName'];
-                    }
-                    echo "Le total des ventes pour".$burgerName."est de :".$somme.'€';
-                }
-                ?>
-            </div>
-        </div>
+        <form action="index.php" method="GET">
+            <select name="villeselected" id="">
+                <?php 
+                $reqvilles = $bd->prepare('SELECT v.ville,v.id_ville FROM restaurants AS r JOIN villes as v ON r.id_ville=v.id_ville GROUP BY r.id_ville HAVING COUNT(r.id_ville>0) ORDER BY v.ville;');
+                $reqvilles->execute();
+                while($ville = $reqvilles->fetch()){
+                    echo '<option value="'.$ville['id_ville'].'" ';
+                    if(isset($villeID)){if($ville['id_ville']==$villeID){echo "selected"; $nomVille=$ville['ville'];}}
+                    echo ' >'.$ville['ville'].'</option>';
+                } ?>
+            </select>
+            <button type="submit">Voir les restaurants</button>
+        </form>
+        <?php 
+        if(isset($villeID)){
+            $reqRestoVille = $bd->prepare('SELECT r.nom,r.description,SUM(v.nombre*b.prix) AS totalVentes FROM ventes as v JOIN commandes AS c ON v.id_commande=c.id_commande JOIN employes AS e ON e.id_employe=c.id_employe JOIN restaurants as r ON r.id_restaurant=e.id_restaurant JOIN burgers as b ON b.id_burger=v.id_burger WHERE r.id_ville=:ville AND r.ouvert=1 GROUP BY r.id_restaurant ORDER BY r.nom;');
+            $reqRestoVille->bindvalue('ville',$villeID);
+            $reqRestoVille->execute();
+            echo '<div id="listesrestaurantsactfs">';
+            $total = 0;
+            while($restaurantActif = $reqRestoVille->fetch()){
+                echo '<p><b>'.$restaurantActif['nom'].'</b> ';
+                echo $restaurantActif['description'].'<br>';
+                echo $restaurantActif['totalVentes'].' € </p>';
+                $total+=$restaurantActif['totalVentes'];
+            }
+            echo '<p> Le total des ventes pour'. $nomVille.' est de: '.$total.' €</p>';
+        }
+        ?>
     </main>
 </body>
 </html>

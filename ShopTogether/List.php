@@ -198,9 +198,85 @@ if(isset($_POST['sharedemail']) and !empty($_POST['sharedemail'])){
                 <button type="submit">Add</button>
             </form>   
         </div>
-        <div id="ShopTheList">
-            <?php echo '<a href="ShopList.php?ID_shoppingList='.$idshop.'">Shop it NOW</a>'; ?>
-        </div>
+
+<div id="ShopTheList">
+    <?php echo '<a href="#" id="shopNowBtn">Shop it NOW</a>'; ?>
+</div>
+
+<div id="rgpdPopup">
+    <div class="popup-content">
+        <h2>Save your shop location?</h2>
+        <p>
+            To enhance your shopping experience and provide you with more relevant information, you can save the store you're currently in by allowing us to access your geographic coordinates.
+            This app will only use your browser's location data after you click the accept button below. Your data will not be used for advertising purposes or sold to third parties. It will solely be used for internal analysis reports and kept strictly confidential.
+        </p>
+        <button id="acceptLocation">Accept</button>
+        <button id="declineLocation">Deny</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('shopNowBtn').addEventListener('click', (e) => {
+        e.preventDefault(); // Empêche la redirection immédiate
+        document.getElementById('rgpdPopup').style.display = 'flex';
+    });
+
+    document.getElementById('acceptLocation').addEventListener('click', () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const idshop = "<?php echo $idshop; ?>";
+
+                    fetch('process_location.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            ID_shoppingList: "<?php echo $idshop; ?>",
+                            latitude: latitude,
+                            longitude: longitude
+                        })
+                    })
+                    .then(response => {
+                        console.log('Statut HTTP:', response.status);
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Réponse serveur:', data);
+                        if (data.status === 'success') {
+                            window.location.href = `ShopList.php?ID_shoppingList=<?php echo $idshop; ?>`;
+                        } else {
+                            alert('Erreur : ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur réseau :', error);
+                        alert('Une erreur est survenue lors de l\'envoi des données.');
+                    });
+                },
+                (error) => {
+                    alert('Erreur de géolocalisation : ' + error.message);
+                    const idshop = "<?php echo $idshop; ?>";
+                    window.location.href = `ShopList.php`;
+                }
+            );
+        } else {
+            alert('La géolocalisation n\'est pas prise en charge par ce navigateur.');
+            const idshop = "<?php echo $idshop; ?>";
+            window.location.href = `ShopList.php`;
+        }
+        document.getElementById('rgpdPopup').style.display = 'none';
+    });
+
+    document.getElementById('declineLocation').addEventListener('click', () => {
+        const idshop = "<?php echo $idshop; ?>";
+        window.location.href = `ShopList.php?ID_shoppingList=${idshop}`;
+        document.getElementById('rgpdPopup').style.display = 'none';
+    });
+</script>
     </main>
 </body>
 </html>

@@ -55,6 +55,43 @@
     border-radius: 3rem;
   }
 
+  /* Styles pour le popup */
+  #rgpdPopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+#rgpdPopup .popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#rgpdPopup button {
+    margin: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#acceptLocation:hover{
+  background-color: rgb(50, 142, 50);
+  color: white;
+}
+
+#declineLocation:hover{
+  background-color: rgb(167, 50, 50);
+  color: white;
+}
+
   /****************************/
   /* 3) Page de login         */
   /****************************/
